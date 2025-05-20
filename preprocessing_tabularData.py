@@ -56,11 +56,18 @@ merged = merged.rename(columns={
 })
 
 selected_columns = [
-    'subject_id', 'deathdate', 'race', 'gender',
-    'bmi', 'blood_pressure', 'age_at_admit'
-] # do tego dojdzie jeszcze data ekg, żeby obliczyć po jakim czasie od ekg death
+    'subject_id',
+    'admittime',
+    'deathdate',
+    'race',
+    'gender',
+    'bmi',
+    'blood_pressure',
+    'age_at_admit'
+]
 
-# Zastosuj filtr
 merged_filtered = merged[selected_columns]
-
+merged_filtered['admittime'] = merged_filtered['admittime'].dt.date
 merged_filtered.to_csv("merged_filtered.csv", index=False)
+
+print(merged_filtered[merged_filtered['deathdate'].notna()][['admittime', 'deathdate']])
