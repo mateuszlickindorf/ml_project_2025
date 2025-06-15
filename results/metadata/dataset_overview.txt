@@ -1,0 +1,11 @@
+Rozmiar danych wejściowych:
+merged_filtered.csv: 126903 rekordów
+ecg_signals_list.csv: 45028 rekordów
+Po scaleniu (df): 45028 rekordów
+
+Liczność klas PRZED balansowaniem:
+death_class
+0    42092
+1      829
+2     1520
+3      587

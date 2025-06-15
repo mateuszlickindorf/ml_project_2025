@@ -7,6 +7,8 @@ import wfdb #pip install wfdb
 import numpy as np
 import os
 
+
+
 # 1) wczytanie danych
 df = pd.read_csv('merged_filtered.csv', parse_dates=['deathdate', 'admittime'])
 num_cols = ['age_at_admit', 'bmi', 'systolic_bp', 'diastolic_bp']
@@ -20,12 +22,10 @@ df_num = pd.DataFrame(scaler.fit_transform(df[num_cols]), columns=num_cols)
 # 2) wczytanie listy plików ecg i filtracja
 # record_list.csv zawiera: subject_id, study_id, filepath (ścieżka bez .hea/.dat), ecg_time
 records = pd.read_csv('record_list.csv', parse_dates=['ecg_time'])
-# wybieramy tylko te ECG, gdzie ecg_time jest między admit i death (jeśli death brakuje, przyjmujemy do discharge)
 df = df.merge(records, on='subject_id', how='left')
 df = df[df['ecg_time'].notna()]  # usuwamy bez ECG
+
 # synchronizacja: tylko ecg_time >= admittime (jeśli admittime mamy) i <= deathdate
-# TODO: dodać
-#  admittime
 # filtrujemy, żeby ECG było po admittime
 df = df[df['ecg_time'] >= df['admittime']]
 # filtrujemy, aby dla zmarłych ECG było przed śmiercią
@@ -42,6 +42,7 @@ ecg_selected = pd.concat([dead_closest, alive_last], ignore_index=True)
 
 # 3) Przetwarzanie EKG pojedynczo (oszczędzanie RAM-u) i zapis do .npy
 output_dir = 'ecg_signals'
+BASE_PATH = "/Users/mateuszlickindorf/Downloads/mimic-iv-ecg"
 os.makedirs(output_dir, exist_ok=True)
 
 records_to_save = []
@@ -49,13 +50,16 @@ records_to_save = []
 for idx, row in ecg_selected.iterrows():
     subject_id = row['subject_id']
     ecg_time = row['ecg_time']
-    rec_path = row['path']  # np. 'files/p1000/p10001725/s41420867/41420867'
+    relative_path = row['path']  # np. 'files/p1000/p10001725/s41420867/41420867'
+    full_path = os.path.join(BASE_PATH, relative_path)
 
     try:
-        rec = wfdb.rdrecord(rec_path)
-        sig = rec.p_signal[:5000, :].T  # (12, 5000)
+        rec = wfdb.rdrecord(full_path)
+        sig = rec.p_signal[:5000, :].T
+        print(f"[✓] Loaded {full_path}")
     except Exception as e:
-        sig = np.zeros((12, 5000))  # fallback na błędne pliki
+        print(f"[!] Failed to load {full_path}: {e}")
+        sig = np.zeros((12, 5000))
 
     # Zapisz sygnał do osobnego pliku .npy
     filename = f"{subject_id}_{idx}.npy"

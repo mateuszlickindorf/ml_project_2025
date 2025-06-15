@@ -1,0 +1,13 @@
+Średnie accuracy (RandomForest): 0.3045
+
+Classification report:
+              precision    recall  f1-score   support
+
+           0      0.370     0.399     0.384       587
+           1      0.291     0.296     0.294       587
+           2      0.276     0.278     0.277       587
+           3      0.273     0.245     0.259       587
+
+    accuracy                          0.305      2348
+   macro avg      0.303     0.305     0.303      2348
+weighted avg      0.303     0.305     0.303      2348

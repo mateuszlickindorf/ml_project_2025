@@ -6,11 +6,11 @@ from tabulate import tabulate
 from scipy.stats import ttest_rel
 import torch
 
-# # dane testowe - jeszcze nie użyte, zastanawiam się czy zostawić
-# data = np.load("test_set.npz")
-# X_tab_te = torch.from_numpy(data["X_tab"]).float()
-# X_ecg_te = torch.from_numpy(data["X_ecg"]).float()
-# y_te     = torch.from_numpy(data["y"]).long()
+# dane testowe - jeszcze nie użyte, zastanawiam się czy zostawić
+data = np.load("test_set.npz")
+X_tab_te = torch.from_numpy(data["X_tab"]).float()
+X_ecg_te = torch.from_numpy(data["X_ecg"]).float()
+y_te     = torch.from_numpy(data["y"]).long()
 
 # wyniki
 scores = np.load("deep_scores.npy")  # [model, grid, fold, metric]

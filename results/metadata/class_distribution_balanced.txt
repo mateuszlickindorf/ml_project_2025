@@ -1,0 +1,6 @@
+Liczba klas PO balansowaniu:
+death_class
+0    587
+1    587
+2    587
+3    587

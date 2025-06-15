@@ -1,0 +1,36 @@
+early_lstm   | best: lr=0.001, bs=32 | acc=0.2500
+late_lstm    | best: lr=0.001, bs=32 | acc=0.2500
+early_gru    | best: lr=0.001, bs=32 | acc=0.2500
+late_gru     | best: lr=0.001, bs=32 | acc=0.2500
+
+ŚREDNIE METRYKI (acc, auc, f1, prec, rec):
+
+=== ACC ===
+early_lstm   0.2500 0.2500 0.2500 0.2500
+late_lstm    0.2500 0.2500 0.2500 0.2500
+early_gru    0.2500 0.2500 0.2500 0.2500
+late_gru     0.2500 0.2500 0.2500 0.2500
+
+=== AUC ===
+early_lstm   nan nan nan nan
+late_lstm    nan nan nan nan
+early_gru    nan nan nan nan
+late_gru     nan nan nan nan
+
+=== F1 ===
+early_lstm   0.1000 0.1000 0.1000 0.1000
+late_lstm    0.1000 0.1000 0.1000 0.1000
+early_gru    0.1000 0.1000 0.1000 0.1000
+late_gru     0.1000 0.1000 0.1000 0.1000
+
+=== PREC ===
+early_lstm   0.0625 0.0625 0.0625 0.0625
+late_lstm    0.0625 0.0625 0.0625 0.0625
+early_gru    0.0625 0.0625 0.0625 0.0625
+late_gru     0.0625 0.0625 0.0625 0.0625
+
+=== REC ===
+early_lstm   0.2500 0.2500 0.2500 0.2500
+late_lstm    0.2500 0.2500 0.2500 0.2500
+early_gru    0.2500 0.2500 0.2500 0.2500
+late_gru     0.2500 0.2500 0.2500 0.2500
